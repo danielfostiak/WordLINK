@@ -42,10 +42,6 @@ export default function Game({ todaysChallengeData, todaysWordData, apiKey }) {
     setPath([]);
   };
 
-  // useEffect(() => {
-  //   updateWord(challengeData.start_word);
-  // }, []);
-
   useEffect(() => {
     updateWord(challengeData.start_word);
   }, [challengeData]);
