@@ -1,4 +1,4 @@
-import supabase from "../supabase/supabase";
+import supabase from "@/supabase/supabase";
 
 import getWord from "@/api/apiCalls";
 
@@ -12,7 +12,7 @@ export default async function Home() {
     .select("*")
     .eq("date", today);
 
-  const todaysChallengeData = data[0];
+  const [todaysChallengeData] = data;
 
   const todaysWordData = await getWord(
     todaysChallengeData.start_word,
@@ -20,12 +20,10 @@ export default async function Home() {
   );
 
   return (
-    <div className="">
-      <Game
-        todaysChallengeData={todaysChallengeData}
-        todaysWordData={todaysWordData}
-        apiKey={process.env.API_KEY}
-      />
-    </div>
+    <Game
+      todaysChallengeData={todaysChallengeData}
+      todaysWordData={todaysWordData}
+      apiKey={process.env.API_KEY}
+    />
   );
 }
