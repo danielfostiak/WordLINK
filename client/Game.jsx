@@ -12,7 +12,8 @@ import HowToModal from "./components/HowToModal";
 // import supabase from "@/supabase/supabase";
 import ComingSoonModal from "./components/ComingSoonModal";
 
-const url = process.env.NEXT_PUBLIC_APP_URL;
+const url = "https://wordlink2.vercel.app";
+// const url = process.env.NEXT_PUBLIC_APP_URL;
 // const url = "http://localhost:3000";
 
 export default function Game({ todaysChallengeData, todaysWordData }) {
