@@ -12,7 +12,6 @@ function GameOverModal(props) {
           <p className="py-4">
             Nice, you completed it in {path.length - 1} links.
           </p>
-          <p className="py-4">The record was</p>
           <p className="py-4">
             Share your victory:{" "}
             {!copied ? (
