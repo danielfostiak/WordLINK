@@ -34,6 +34,8 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
         setPlaying(false);
         if (!challengeData.record || path.length < challengeData.record) {
           console.log("Updating DB");
+          console.log(challengeData);
+          console.log(challengeData.record);
           await setNewRecord(path.length, challengeData.date);
         }
         window.game_over_modal.showModal();

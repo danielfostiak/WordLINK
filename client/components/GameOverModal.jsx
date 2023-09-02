@@ -13,7 +13,7 @@ function GameOverModal(props) {
             Nice, you completed it in {path.length - 1} links.
           </p>
           <p className="py-4">
-            {path.length - 1 >= challengeData.record
+            {challengeData.record && path.length - 1 >= challengeData.record
               ? `The best score found was 
             ${Math.min(challengeData.record, path.length - 1)}`
               : "Congratulations! You found the new best path!"}
@@ -24,7 +24,13 @@ function GameOverModal(props) {
               <a
                 className="link link-primary"
                 onClick={() => {
-                  navigator.clipboard.writeText(path.join(" "));
+                  navigator.clipboard.writeText(
+                    `I won WordLink in ${
+                      path.length - 1
+                    } links. This was my path: ${path.join(
+                      ", "
+                    )}. Play it at https://wordlink2.vercel.app.`
+                  );
                   setCopied(true);
                 }}
               >

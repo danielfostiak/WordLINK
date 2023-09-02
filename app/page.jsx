@@ -4,6 +4,9 @@ import getWord from "@/api/apiCalls";
 
 import Game from "../client/Game";
 
+// const url = process.env.NEXT_APP_URL;
+// const url = "http://localhost:3000";
+
 export default async function Page() {
   const today = new Date().toISOString().split("T")[0];
 
