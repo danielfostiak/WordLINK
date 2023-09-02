@@ -7,8 +7,11 @@ import CurrentWord from "./components/CurrentWord";
 import WordLists from "./components/WordLists";
 import Path from "./components/Path";
 import GameOverModal from "./components/GameOverModal";
+import HowToModal from "./components/HowToModal";
 
 import getWord from "@/api/apiCalls";
+// import supabase from "@/supabase/supabase";
+import ComingSoonModal from "./components/ComingSoonModal";
 
 export default function Game({ todaysChallengeData, todaysWordData, apiKey }) {
   const [challengeData, setChallengeData] = useState(todaysChallengeData);
@@ -24,7 +27,10 @@ export default function Game({ todaysChallengeData, todaysWordData, apiKey }) {
     setPath([...path, word]);
     if (checkWin(word)) {
       setPlaying(false);
-      window.my_modal_1.showModal();
+      if (!challengeData.record || path.length - 1 < challengeData.record) {
+        await setNewRecord(path.length - 1, challengeData.date);
+      }
+      window.game_over_modal.showModal();
     }
   };
 
@@ -64,7 +70,9 @@ export default function Game({ todaysChallengeData, todaysWordData, apiKey }) {
           antonyms={wordData.antonyms}
         />
         <Path path={path} />
-        <GameOverModal path={path} />
+        <GameOverModal challengeData={challengeData} path={path} />
+        <HowToModal />
+        <ComingSoonModal />
       </div>
     )
   );

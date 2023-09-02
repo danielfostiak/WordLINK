@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
-function Modal(props) {
-  const { path } = props;
+function GameOverModal(props) {
+  const { path, challengeData } = props;
   const [copied, setCopied] = useState(false);
 
   return (
     <div>
-      <dialog id="my_modal_1" className="modal">
+      <dialog id="game_over_modal" className="modal">
         <form method="dialog" className="modal-box">
           <h3 className="font-bold text-lg">Let's goooo</h3>
           <p className="py-4">
-            Nice you completed it in {path.length - 1} links.
+            Nice, you completed it in {path.length - 1} links.
           </p>
+          <p className="py-4">The record was</p>
           <p className="py-4">
             Share your victory:{" "}
             {!copied ? (
@@ -38,4 +39,4 @@ function Modal(props) {
   );
 }
 
-export default Modal;
+export default GameOverModal;

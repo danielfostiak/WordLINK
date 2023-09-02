@@ -26,13 +26,13 @@ function Nav(props) {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
+            <li onClick={() => window.how_to_modal.showModal()}>
               <a>How to play</a>
             </li>
-            <li>
+            <li onClick={() => window.coming_soon_modal.showModal()}>
               <a>Share</a>
             </li>
-            <li>
+            <li onClick={() => window.coming_soon_modal.showModal()}>
               <a>Sign up</a>
             </li>
           </ul>
