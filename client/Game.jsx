@@ -27,9 +27,9 @@ export default function Game({ todaysChallengeData, todaysWordData, apiKey }) {
     setPath([...path, word]);
     if (checkWin(word)) {
       setPlaying(false);
-      if (!challengeData.record || path.length - 1 < challengeData.record) {
-        await setNewRecord(path.length - 1, challengeData.date);
-      }
+      // if (!challengeData.record || path.length - 1 < challengeData.record) {
+      //   // await setNewRecord(path.length - 1, challengeData.date);
+      // }
       window.game_over_modal.showModal();
     }
   };
