@@ -9,7 +9,7 @@ export function middleware(req) {
 
   if (pathname.startsWith(`/api`)) {
     if (
-      !req.headers.get("referer")?.includes(process.env.NEXT_PUBLIC_API_KEY)
+      !req.headers.get("referer")?.includes(process.env.NEXT_PUBLIC_APP_URL)
     ) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
