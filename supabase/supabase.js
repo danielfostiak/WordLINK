@@ -6,6 +6,8 @@ const supabase = createClient(
 );
 
 export const setNewRecord = async function (newRecord, date) {
+  console.log("updating db");
+  console.log(newRecord, date);
   const { data, error } = await supabase
     .from("challenges")
     .update({ record: newRecord })

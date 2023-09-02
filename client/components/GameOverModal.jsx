@@ -13,6 +13,12 @@ function GameOverModal(props) {
             Nice, you completed it in {path.length - 1} links.
           </p>
           <p className="py-4">
+            {path.length - 1 >= challengeData.record
+              ? `The best score found was 
+            ${Math.min(challengeData.record, path.length - 1)}`
+              : "Congratulations! You found the new best path!"}
+          </p>
+          <p className="py-4">
             Share your victory:{" "}
             {!copied ? (
               <a

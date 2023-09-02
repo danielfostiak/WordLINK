@@ -20,11 +20,5 @@ export default async function Page({ params }) {
 
   const wordData = await getWord(challengeData.start_word, process.env.API_KEY);
 
-  return (
-    <Game
-      todaysChallengeData={challengeData}
-      todaysWordData={wordData}
-      apiKey={process.env.API_KEY}
-    />
-  );
+  return <Game todaysChallengeData={challengeData} todaysWordData={wordData} />;
 }

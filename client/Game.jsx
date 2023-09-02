@@ -9,11 +9,13 @@ import Path from "./components/Path";
 import GameOverModal from "./components/GameOverModal";
 import HowToModal from "./components/HowToModal";
 
-import getWord from "@/api/apiCalls";
 // import supabase from "@/supabase/supabase";
 import ComingSoonModal from "./components/ComingSoonModal";
 
-export default function Game({ todaysChallengeData, todaysWordData, apiKey }) {
+const url = "wordlink2.vercel.app";
+// const url = "localhost:3000";
+
+export default function Game({ todaysChallengeData, todaysWordData }) {
   const [challengeData, setChallengeData] = useState(todaysChallengeData);
   const [wordData, setWordData] = useState(todaysWordData);
   const [path, setPath] = useState([]);
@@ -21,17 +23,29 @@ export default function Game({ todaysChallengeData, todaysWordData, apiKey }) {
 
   const updateWord = async function (word) {
     if (!playing) return;
-    const data = await getWord(word, apiKey);
+    const dataRes = await fetch(`http://${url}/api?word=${word}`);
+    const data = await dataRes.json();
     console.log(data);
     setWordData(data);
     setPath([...path, word]);
     if (checkWin(word)) {
       setPlaying(false);
-      // if (!challengeData.record || path.length - 1 < challengeData.record) {
-      //   // await setNewRecord(path.length - 1, challengeData.date);
-      // }
+      if (!challengeData.record || path.length < challengeData.record) {
+        console.log("Updating DB");
+        await setNewRecord(path.length, challengeData.date);
+      }
       window.game_over_modal.showModal();
     }
+  };
+
+  const setNewRecord = async function (record, date) {
+    const res = await fetch(`http://${url}/db`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newRecord: record, date }),
+    });
   };
 
   const checkWin = function (word) {

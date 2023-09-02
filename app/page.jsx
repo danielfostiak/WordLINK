@@ -23,7 +23,6 @@ export default async function Page() {
     <Game
       todaysChallengeData={todaysChallengeData}
       todaysWordData={todaysWordData}
-      apiKey={process.env.API_KEY}
     />
   );
 }
