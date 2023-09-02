@@ -23,7 +23,7 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
 
   const updateWord = async function (word) {
     if (!playing) return;
-    const dataRes = await fetch(`http://${url}/api?word=${word}`);
+    const dataRes = await fetch(`https://${url}/api?word=${word}`);
     const data = await dataRes.json();
     console.log(data);
     setWordData(data);
@@ -39,7 +39,7 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
   };
 
   const setNewRecord = async function (record, date) {
-    const res = await fetch(`http://${url}/db`, {
+    const res = await fetch(`https://${url}/db`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
