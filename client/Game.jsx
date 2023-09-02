@@ -12,8 +12,8 @@ import HowToModal from "./components/HowToModal";
 // import supabase from "@/supabase/supabase";
 import ComingSoonModal from "./components/ComingSoonModal";
 
-const url = "wordlink2.vercel.app";
-// const url = "localhost:3000";
+const url = process.env.NEXT_PUBLIC_APP_URL;
+// const url = "http://localhost:3000";
 
 export default function Game({ todaysChallengeData, todaysWordData }) {
   const [challengeData, setChallengeData] = useState(todaysChallengeData);
@@ -24,7 +24,7 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
   const updateWord = async function (word) {
     if (!playing) return;
     try {
-      const dataRes = await fetch(`https://${url}/api?word=${word}`);
+      const dataRes = await fetch(`${url}/api?word=${word}`);
       const data = await dataRes.json();
       console.log(data);
       setWordData(data);
@@ -44,7 +44,7 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
 
   const setNewRecord = async function (record, date) {
     try {
-      const res = await fetch(`https://${url}/db`, {
+      const res = await fetch(`${url}/db`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
