@@ -23,29 +23,38 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
 
   const updateWord = async function (word) {
     if (!playing) return;
-    const dataRes = await fetch(`http://${url}/api?word=${word}`);
-    const data = await dataRes.json();
-    console.log(data);
-    setWordData(data);
-    setPath([...path, word]);
-    if (checkWin(word)) {
-      setPlaying(false);
-      if (!challengeData.record || path.length < challengeData.record) {
-        console.log("Updating DB");
-        await setNewRecord(path.length, challengeData.date);
+    try {
+      const dataRes = await fetch(`http://${url}/api?word=${word}`);
+      const data = await dataRes.json();
+      console.log(data);
+      setWordData(data);
+      setPath([...path, word]);
+      if (checkWin(word)) {
+        setPlaying(false);
+        if (!challengeData.record || path.length < challengeData.record) {
+          console.log("Updating DB");
+          await setNewRecord(path.length, challengeData.date);
+        }
+        window.game_over_modal.showModal();
       }
-      window.game_over_modal.showModal();
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const setNewRecord = async function (record, date) {
-    const res = await fetch(`http://${url}/db`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ newRecord: record, date }),
-    });
+    try {
+      const res = await fetch(`http://${url}/db`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ newRecord: record, date }),
+      });
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const checkWin = function (word) {
