@@ -5,7 +5,9 @@ export function middleware(req) {
   const { pathname } = url;
 
   if (pathname.startsWith(`/api`)) {
-    if (!req.headers.get("referer")?.includes("https://wordlink2.vercel.app")) {
+    if (
+      !req.headers.get("referer")?.includes(process.env.NEXT_PUBLIC_APP_URL)
+    ) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
   }
