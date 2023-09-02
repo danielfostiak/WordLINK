@@ -22,3 +22,5 @@ export default async function Page({ params }) {
 
   return <Game todaysChallengeData={challengeData} todaysWordData={wordData} />;
 }
+
+export const dynamic = "force-dynamic";
