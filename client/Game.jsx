@@ -8,11 +8,12 @@ import WordLists from "./components/WordLists";
 import Path from "./components/Path";
 import GameOverModal from "./components/GameOverModal";
 import HowToModal from "./components/HowToModal";
+import CalendarComp from "./components/CalendarComp";
 
 import ComingSoonModal from "./components/ComingSoonModal";
 
-const url = process.env.NEXT_PUBLIC_APP_URL;
-// const url = "http://localhost:3000";
+// const url = process.env.NEXT_PUBLIC_APP_URL;
+const url = "http://localhost:3000";
 
 export default function Game({ todaysChallengeData, todaysWordData }) {
   const [challengeData, setChallengeData] = useState(todaysChallengeData);
@@ -111,6 +112,7 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
           antonyms={wordData.antonyms}
         />
         <Path path={path} travelPath={travelPath} />
+        <CalendarComp />
         <GameOverModal challengeData={challengeData} path={path} />
         <HowToModal />
         <ComingSoonModal />
