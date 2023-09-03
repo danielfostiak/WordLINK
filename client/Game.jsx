@@ -74,14 +74,13 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
     return word == challengeData.end_word;
   };
 
-  const swapPath = function () {
+  const swapPath = async function () {
     if (!playing) return;
     setChallengeData({
       ...challengeData,
       start_word: challengeData.end_word,
       end_word: challengeData.start_word,
     });
-    setPath([]);
   };
 
   const travelPath = async function (word, i) {

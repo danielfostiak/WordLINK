@@ -29,7 +29,9 @@ function HowToModal() {
             If you find it too difficult to go from the first word to the second
             word, you can click on the{" "}
             <span className="font-bold text-lg">"WordLINK"</span> at the top to
-            swap them.
+            swap them. Click on words in{" "}
+            <span className="font-bold text-lg">Your LINK</span> to travel to
+            them.
           </p>
           <p className="py-4">Hope you enjoy!</p>
           <div className="modal-action">
