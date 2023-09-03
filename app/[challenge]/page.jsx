@@ -32,7 +32,9 @@ export default async function Page({ params }) {
     .select("*")
     .eq("date", challenge);
 
-  if (!data) notFound();
+  if (!data.length) {
+    notFound();
+  }
 
   const [challengeData] = data;
 

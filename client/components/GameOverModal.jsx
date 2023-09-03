@@ -29,7 +29,7 @@ function GameOverModal(props) {
                       path.length - 1
                     } links. This was my path: ${path.join(
                       ", "
-                    )}. Play it at https://wordlink2.vercel.app.`
+                    )}. Play it at https://wordlink.xyz.`
                   );
                   setCopied(true);
                 }}
