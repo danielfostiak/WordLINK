@@ -85,6 +85,7 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
   };
 
   const travelPath = async function (word, i) {
+    if (!playing) return;
     await updateWord(word);
     setPath([...path.slice(0, i + 1)]);
   };

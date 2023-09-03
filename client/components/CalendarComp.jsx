@@ -20,9 +20,9 @@ function CalendarComp() {
               className="mx-auto m-4"
               minDate={new Date("2023-08-31")}
               minDetail="month"
-              onClickDay={(day) =>
-                console.log((day + 1).toISOString().split("T")[0])
-              }
+              onClickDay={(day) => {
+                console.log(day.toLocaleDateString("sv").split("T")[0]);
+              }}
             />
           </div>
 
