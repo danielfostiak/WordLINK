@@ -1,8 +1,10 @@
 import Calendar from "react-calendar";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
 function CalendarComp() {
+  const router = useRouter();
   return (
     <div>
       <dialog id="calendar_modal" className="modal">
@@ -22,6 +24,8 @@ function CalendarComp() {
               minDetail="month"
               onClickDay={(day) => {
                 console.log(day.toLocaleDateString("sv").split("T")[0]);
+                const newDate = day.toLocaleDateString("sv").split("T")[0];
+                router.push(`/${newDate}`);
               }}
             />
           </div>

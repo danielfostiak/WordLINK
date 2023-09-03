@@ -4,7 +4,7 @@ function List(props) {
   const { list, color, addWord } = props;
 
   return (
-    <div className="container mt-4 w-1/2 text-center">
+    <div className="container mt-4 md:w-1/2 text-center">
       {list.map((word, i) => (
         <button
           onClick={() => addWord(word)}
