@@ -1,13 +1,13 @@
 import React from "react";
 
 function List(props) {
-  const { list, color, updateWord } = props;
+  const { list, color, addWord } = props;
 
   return (
     <div className="container mt-4 w-1/2 text-center">
       {list.map((word, i) => (
         <button
-          onClick={() => updateWord(word)}
+          onClick={() => addWord(word)}
           key={i + word}
           className={`btn ${color} m-1 shadow-xl font-bold`}
         >

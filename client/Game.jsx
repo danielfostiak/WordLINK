@@ -9,17 +9,15 @@ import Path from "./components/Path";
 import GameOverModal from "./components/GameOverModal";
 import HowToModal from "./components/HowToModal";
 
-// import supabase from "@/supabase/supabase";
 import ComingSoonModal from "./components/ComingSoonModal";
 
-// const url = "https://wordlink2.vercel.app";
 const url = process.env.NEXT_PUBLIC_APP_URL;
 // const url = "http://localhost:3000";
 
 export default function Game({ todaysChallengeData, todaysWordData }) {
   const [challengeData, setChallengeData] = useState(todaysChallengeData);
   const [wordData, setWordData] = useState(todaysWordData);
-  const [path, setPath] = useState([]);
+  const [path, setPath] = useState([todaysChallengeData.start_word]);
   const [playing, setPlaying] = useState(true);
 
   const updateWord = async function (word) {
@@ -27,8 +25,20 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
     try {
       const dataRes = await fetch(`${url}/api?word=${word}`);
       const data = await dataRes.json();
-      console.log(data);
       setWordData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setInitialPath = function (word) {
+    setPath([word]);
+  };
+
+  const addWord = async function (word) {
+    if (!playing) return;
+    try {
+      await updateWord(word);
       setPath([...path, word]);
       if (checkWin(word)) {
         setPlaying(false);
@@ -74,8 +84,14 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
     setPath([]);
   };
 
+  const travelPath = async function (word, i) {
+    await updateWord(word);
+    setPath([...path.slice(0, i + 1)]);
+  };
+
   useEffect(() => {
     updateWord(challengeData.start_word);
+    setInitialPath(challengeData.start_word);
   }, [challengeData]);
 
   return (
@@ -91,11 +107,11 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
           definition={wordData.definitions[0]}
         />
         <WordLists
-          updateWord={updateWord}
+          addWord={addWord}
           synonyms={wordData.synonyms}
           antonyms={wordData.antonyms}
         />
-        <Path path={path} />
+        <Path path={path} travelPath={travelPath} />
         <GameOverModal challengeData={challengeData} path={path} />
         <HowToModal />
         <ComingSoonModal />
