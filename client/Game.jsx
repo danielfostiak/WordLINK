@@ -48,7 +48,8 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
       setPath([...path, word]);
       if (checkWin(word)) {
         setPlaying(false);
-        await setScore(challengeData.date, path.length, [...path, word]);
+        const now = new Date();
+        await setScore(challengeData.date, path.length, [...path, word], now);
         const scores = await getScores(challengeData.date);
         setLeaderboard(scores);
         window.game_over_modal.showModal();
@@ -69,13 +70,13 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
     }
   };
 
-  const setScore = async function (date, pathlength, path) {
+  const setScore = async function (date, pathlength, path, createdAt) {
     try {
       console.log(JSON.stringify({ date, pathlength }));
       const res = await fetch(`${url}/db/setScore`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date, pathlength, path }),
+        body: JSON.stringify({ date, pathlength, path, createdAt }),
       });
       return res;
     } catch (error) {
