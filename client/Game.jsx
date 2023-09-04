@@ -48,7 +48,7 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
       setPath([...path, word]);
       if (checkWin(word)) {
         setPlaying(false);
-        await setScore(challengeData.date, path.length, path);
+        await setScore(challengeData.date, path.length, [...path, word]);
         const scores = await getScores(challengeData.date);
         setLeaderboard(scores);
         window.game_over_modal.showModal();
