@@ -5,10 +5,10 @@ const supabase = createClient(
   process.env.SUPABASE_KEY
 );
 
-export const setScore = async function (date, path) {
+export const setScore = async function (date, pathlength, path) {
   const { data } = await supabase
     .from("scores")
-    .insert([{ date, path }])
+    .insert([{ date, pathlength, path }])
     .select();
 
   return data;
@@ -17,7 +17,7 @@ export const setScore = async function (date, path) {
 export const getScores = async function (date) {
   const { data } = await supabase
     .from("scores")
-    .select("path")
+    .select("pathlength")
     .eq("date", date);
 
   return data;

@@ -16,7 +16,7 @@ function GameOverModal({ path, scores }) {
             {path.length - 1 > bestScore
               ? `The best score found was 
             ${bestScore}`
-              : "Congratulations! You found the new best path!"}
+              : "Congratulations! You found the best path!"}
           </p>
           <p className="py-4">
             Share your victory:{" "}

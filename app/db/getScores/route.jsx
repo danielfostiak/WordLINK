@@ -8,7 +8,7 @@ export async function GET(request) {
   console.log(date);
 
   let data = await getScores(date);
-  data = data.map((obj) => obj.path);
+  data = data.map((obj) => obj.pathlength);
 
   return NextResponse.json(data);
 }
