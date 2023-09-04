@@ -20,6 +20,7 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
   const [wordData, setWordData] = useState(todaysWordData);
   const [path, setPath] = useState([todaysChallengeData.start_word]);
   const [playing, setPlaying] = useState(true);
+  const [leaderboard, setLeaderboard] = useState([]);
 
   const updateWord = async function (word) {
     if (!playing) return;
@@ -43,33 +44,66 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
       setPath([...path, word]);
       if (checkWin(word)) {
         setPlaying(false);
-        if (!challengeData.record || path.length < challengeData.record) {
-          console.log("Updating DB");
-          console.log(challengeData);
-          console.log(challengeData.record);
-          await setNewRecord(path.length, challengeData.date);
-        }
+        await setScore(challengeData.date, path.length);
+        const scores = await getScores(challengeData.date);
+        setLeaderboard(scores);
         window.game_over_modal.showModal();
+        // const scores = await getScores(challengeData.date);
+        // if (!challengeData.record || path.length < challengeData.record) {
+        //   console.log("Updating DB");
+        //   console.log(challengeData);
+        //   console.log(challengeData.record);
+        //   await setNewRecord(path.length, challengeData.date);
+        // }
+        // window.game_over_modal.showModal();
+        // await setScore(challengeData.date, path.length);
+        // const scores = await getScores(challengeData.date);
+        // console.log(scores);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const setNewRecord = async function (record, date) {
+  const setScore = async function (date, path) {
     try {
-      const res = await fetch(`${url}/db`, {
+      console.log(JSON.stringify({ date, path }));
+      const res = await fetch(`${url}/db/setScore`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ newRecord: record, date }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date, path }),
       });
       return res;
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getScores = async function (date) {
+    try {
+      const res = await fetch(`${url}/db/getScores?date=${date}`);
+      const data = await res.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const setNewRecord = async function (record, date) {
+  //   try {
+  //     const res = await fetch(`${url}/db`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ newRecord: record, date }),
+  //     });
+  //     return res;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const checkWin = function (word) {
     return word == challengeData.end_word;
@@ -114,7 +148,11 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
         />
         <Path path={path} travelPath={travelPath} />
         <CalendarComp />
-        <GameOverModal challengeData={challengeData} path={path} />
+        <GameOverModal
+          challengeData={challengeData}
+          path={path}
+          scores={leaderboard}
+        />
         <HowToModal />
         <ComingSoonModal />
       </div>

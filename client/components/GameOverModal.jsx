@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-function GameOverModal(props) {
-  const { path, challengeData } = props;
+function GameOverModal({ path, scores }) {
   const [copied, setCopied] = useState(false);
+  const bestScore = Math.min(...scores);
 
   return (
     <div>
@@ -13,9 +13,9 @@ function GameOverModal(props) {
             Nice, you completed it in {path.length - 1} links.
           </p>
           <p className="py-4">
-            {challengeData.record && path.length - 1 >= challengeData.record
+            {path.length - 1 > bestScore
               ? `The best score found was 
-            ${Math.min(challengeData.record, path.length - 1)}`
+            ${bestScore}`
               : "Congratulations! You found the new best path!"}
           </p>
           <p className="py-4">
