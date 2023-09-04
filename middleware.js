@@ -7,7 +7,7 @@ export function middleware(req) {
   const url = req.nextUrl;
   const { pathname } = url;
 
-  if (pathname.startsWith(`/api`)) {
+  if (pathname.startsWith(`/api`) || pathname.startsWith(`/db`)) {
     if (!req.headers.get("referer")?.includes(domain)) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
