@@ -1,10 +1,12 @@
 import Calendar from "react-calendar";
 
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
-function CalendarComp() {
+function CalendarComp({ today }) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   return (
     <div>
       <dialog id="calendar_modal" className="modal">
@@ -18,16 +20,25 @@ function CalendarComp() {
             that day's game.
           </p>
           <div className="mx-auto">
-            <Calendar
-              className="mx-auto m-4"
-              minDate={new Date("2023-08-31")}
-              minDetail="month"
-              onClickDay={(day) => {
-                console.log(day.toLocaleDateString("sv").split("T")[0]);
-                const newDate = day.toLocaleDateString("sv").split("T")[0];
-                router.push(`/${newDate}`);
-              }}
-            />
+            {loading ? (
+              <span className="loading loading-spinner loading-lg"></span>
+            ) : (
+              <Calendar
+                className="mx-auto m-4"
+                // minDate={new Date("2023-08-31")}
+                minDetail="month"
+                onClickDay={(day) => {
+                  console.log(day.toLocaleDateString("sv").split("T")[0]);
+                  const newDate = day.toLocaleDateString("sv").split("T")[0];
+                  if (newDate == pathname.slice(1)) {
+                    window.calendar_modal.close();
+                    return;
+                  }
+                  setLoading(true);
+                  router.push(`/${newDate}`);
+                }}
+              />
+            )}
           </div>
 
           <div className="modal-action">
