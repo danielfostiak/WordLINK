@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import BarChart from "./BarChart";
 
 function GameOverModal({ path, scores }) {
   const [copied, setCopied] = useState(false);
-  const bestScore = Math.min(...scores);
+  const bestScore = Math.min(...scores.map((obj) => obj.pathlength));
 
   return (
     <div>
       <dialog id="game_over_modal" className="modal">
         <form method="dialog" className="modal-box">
           <h3 className="font-bold text-lg">Let's goooo</h3>
+
           <p className="py-4">
-            Nice, you completed it in {path.length - 1} links.
+            Nice, you completed it in{" "}
+            <span className="font-bold text-lg">{path.length - 1} links</span> .
           </p>
           <p className="py-4">
             {path.length - 1 > bestScore
@@ -18,6 +21,7 @@ function GameOverModal({ path, scores }) {
             ${bestScore}`
               : "Congratulations! You found the best path!"}
           </p>
+          <BarChart scores={scores.map((obj) => obj.pathlength)} />
           <p className="py-4">
             Share your victory:{" "}
             {!copied ? (
@@ -27,9 +31,7 @@ function GameOverModal({ path, scores }) {
                   navigator.clipboard.writeText(
                     `I won WordLink in ${
                       path.length - 1
-                    } links. This was my path: ${path.join(
-                      ", "
-                    )}. Play it at https://wordlink.xyz.`
+                    } links. Beat my score at https://wordlink.xyz.`
                   );
                   setCopied(true);
                 }}

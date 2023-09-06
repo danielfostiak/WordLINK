@@ -17,7 +17,7 @@ export const setScore = async function (date, pathlength, path, createdAt) {
 export const getScores = async function (date) {
   const { data } = await supabase
     .from("scores")
-    .select("pathlength")
+    .select("pathlength,path")
     .eq("date", date);
 
   return data;

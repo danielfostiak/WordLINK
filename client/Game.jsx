@@ -53,17 +53,6 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
         const scores = await getScores(challengeData.date);
         setLeaderboard(scores);
         window.game_over_modal.showModal();
-        // const scores = await getScores(challengeData.date);
-        // if (!challengeData.record || path.length < challengeData.record) {
-        //   console.log("Updating DB");
-        //   console.log(challengeData);
-        //   console.log(challengeData.record);
-        //   await setNewRecord(path.length, challengeData.date);
-        // }
-        // window.game_over_modal.showModal();
-        // await setScore(challengeData.date, path.length);
-        // const scores = await getScores(challengeData.date);
-        // console.log(scores);
       }
     } catch (error) {
       console.log(error);
@@ -94,21 +83,6 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
       console.log(error);
     }
   };
-
-  // const setNewRecord = async function (record, date) {
-  //   try {
-  //     const res = await fetch(`${url}/db`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ newRecord: record, date }),
-  //     });
-  //     return res;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const checkWin = function (word) {
     return word == challengeData.end_word;
