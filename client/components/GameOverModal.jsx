@@ -9,7 +9,9 @@ function GameOverModal({ path, scores }) {
     <div>
       <dialog id="game_over_modal" className="modal">
         <form method="dialog" className="modal-box">
-          <h3 className="font-bold text-lg">Let's goooo</h3>
+          <h3 className="font-bold text-lg">
+            Congratulations, you completed today's challenge!
+          </h3>
 
           <p className="py-4">
             Nice, you completed it in{" "}
@@ -41,6 +43,9 @@ function GameOverModal({ path, scores }) {
             ) : (
               <span className="py-4 text-primary">Copied to clipboard!</span>
             )}
+          </p>
+          <p className="py-4">
+            You can play again to improve your score tomorrow.
           </p>
           <div className="modal-action">
             {/* if there is a button in form, it will close the modal */}

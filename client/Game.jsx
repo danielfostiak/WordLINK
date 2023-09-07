@@ -48,15 +48,25 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
       setPath([...path, word]);
       if (checkWin(word)) {
         setPlaying(false);
+        const key = challengeData.date;
         const now = new Date();
         await setScore(challengeData.date, path.length, [...path, word], now);
-        const scores = await getScores(challengeData.date);
-        setLeaderboard(scores);
-        window.game_over_modal.showModal();
+        const today = new Date().toLocaleDateString("sv").split("T")[0];
+        // localStorage.setItem(
+        //   key,
+        //   JSON.stringify({ lastPlayed: today, path: [...path, word] })
+        // );
+        showScores();
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const showScores = async function () {
+    const scores = await getScores(challengeData.date);
+    setLeaderboard(scores);
+    window.game_over_modal.showModal();
   };
 
   const setScore = async function (date, pathlength, path, createdAt) {
@@ -107,6 +117,19 @@ export default function Game({ todaysChallengeData, todaysWordData }) {
     updateWord(challengeData.start_word);
     setInitialPath(challengeData.start_word);
   }, [challengeData]);
+
+  // useEffect(() => {
+  //   const now = new Date().toLocaleDateString("sv").split("T")[0];
+  //   console.log(now);
+  //   const lsToday = JSON.parse(localStorage.getItem(todaysChallengeData.date));
+  //   if (lsToday && now == lsToday.lastPlayed) {
+  //     setPlaying(false);
+  //     setPath(lsToday.path);
+  //     showScores();
+  //   } else {
+  //     setPlaying(true);
+  //   }
+  // }, []);
 
   return (
     wordData && (
