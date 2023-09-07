@@ -44,9 +44,9 @@ function GameOverModal({ path, scores }) {
               <span className="py-4 text-primary">Copied to clipboard!</span>
             )}
           </p>
-          <p className="py-4">
+          {/* <p className="py-4">
             You can play again to improve your score tomorrow.
-          </p>
+          </p> */}
           <div className="modal-action">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn">Close</button>
