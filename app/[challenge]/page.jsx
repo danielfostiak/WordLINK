@@ -47,16 +47,12 @@ function isCurrentDateMoreThan(dateString) {
 export default async function Page({ params }) {
   const { challenge } = params;
 
-  if (!isCurrentDateMoreThan(challenge)) {
-    notFound();
-  }
-
   const { data } = await supabase
     .from("challenges")
     .select("*")
     .eq("date", challenge);
 
-  if (!data?.length) {
+  if (!data?.length || !isCurrentDateMoreThan(challenge)) {
     notFound();
   }
 
