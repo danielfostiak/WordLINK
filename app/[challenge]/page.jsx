@@ -27,8 +27,7 @@ const getWord = async function (word) {
 export default async function Page({ params }) {
   const { challenge } = params;
 
-  const [day, month, year] = challenge.split("-").map(Number);
-  const dateToCompare = new Date(year, month - 1, day);
+  const dateToCompare = new Date(challenge);
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
